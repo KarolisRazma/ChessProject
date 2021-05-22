@@ -1,4 +1,4 @@
-RM = del /f /q 
+RM = erase
 CC = g++
 FLAGS = -std=c++11 -Wall
 
@@ -25,7 +25,7 @@ deploy:
 	git push origin main
 
 clean :
-	$(RM) $(SRC_OBJ)
+	$(RM) $(SOURCE)\*.o
 	$(RM) $(TARGET)
 
 .PHONY : all rebuild clean deploy 
