@@ -1,73 +1,62 @@
+// Code author: Karolis Razma 
+
 #ifndef PIECE_H
 #define PIECE_H
 
+// libraries
 #include <string>
+#include <vector>
+#include <SDL.h>
+
+// namespaces
 using std::string;
+using std::vector;
+// class forward declaration
+class Square;
+class Board;
 
-namespace Pieces
+class Piece
 {
-    class Piece
-    {
-        private:
-            string name;
-            int value;
-            bool isWhite;
-        public:
-            Piece(string name, int value, bool isWhite);
-            virtual ~Piece();
-            void setName(string name);
-            void setValue(int value);
-            void setIsWhite(bool isWhite);
-            string getName() const;
-            int getValue() const;
-            bool getIsWhite() const;
-    };
+    private:
+        string name;
+        string coordinate;
+        bool isWhite;
+        bool isFirstMove;
+    protected:
+        SDL_Texture * texture;
+    public:
+        // default constructor
+        Piece();
+        // main constructor to init piece
+        Piece(const string& name, const string& coor, bool isWhite, bool isFirstMove);
+        virtual ~Piece();
 
-    class Pawn : public Piece
-    {
-        private:
-            bool isFirstMove;
-        public:
-            Pawn(string name, int value, bool isWhite);
-            ~Pawn();
-            void setIsFirstMove(bool isFirstMove);
-            bool getIsFirstMove() const;
-    };
+        // sets piece name
+        void setName(const string& name);
+        // sets piece coordinate
+        void setCoordinate(const string& coor);
+        // sets piece color (1 is white, 0 is black)
+        void setIsWhite(bool isWhite);
+        // sets boolean for piece first move
+        void setIsFirstMove(bool isFirstMove);
+        
+        // gets piece name
+        string getName() const;
+        // gets piece coordinate
+        string getCoordinate() const;
+        // gets piece color (1 is white, 0 is black)
+        bool getIsWhite() const;
+        // gets if piece is moved already or not
+        bool getIsFirstMove() const;
 
-    class Knight : public Piece
-    {
-        public:
-            Knight(string name, int value, bool isWhite);
-            ~Knight();
-    };
-
-    class Bishop : public Piece
-    {
-        public:
-            Bishop(string name, int value, bool isWhite);
-            ~Bishop();
-    };
-
-    class Rook : public Piece
-    {
-        public:
-            Rook(string name, int value, bool isWhite);
-            ~Rook();
-    };
-
-    class Queen : public Piece
-    {
-        public:
-            Queen(string name, int value, bool isWhite);
-            ~Queen();
-    };
-
-    class King : public Piece
-    {
-        public:
-            King(string name, int value, bool isWhite);
-            ~King();
-    };
-}
+        // sets texture for piece (virtual method)
+        virtual void setTexture(SDL_Renderer * renderer) = 0;
+        // gets texture of piece (virtual method)
+        virtual SDL_Texture * getTexture() const = 0;
+        // deletes texture of piece
+        void deleteTexture();
+        // gets possible moves of certain piece (virtual method)
+        virtual vector<Square> getPossibleMoves(const Board &b) = 0;
+};
 
 #endif // PIECE_H

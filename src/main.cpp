@@ -1,9 +1,12 @@
-#include "GameManager.h"
+// Code author: Karolis Razma 
 
-int main()
+#include <iostream>
+#include "ChessGame.h"
+
+int main(int argc, char* argv[])
 {
-    GameManager g;
-    g.start();
-
+    ChessGame manager;
+    manager.play();
+   
     return 0;
 }

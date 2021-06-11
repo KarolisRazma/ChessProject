@@ -1,131 +1,63 @@
 #include "Piece.h"
 
-namespace Pieces
+Piece::Piece()
 {
-    // Base class Piece methods
-    Piece::Piece(string name, int value, bool isWhite)
-    {
+}
 
-    }
+Piece::Piece(const string& name, const string& coor, bool isWhite, bool isFirstMove)
+{
+    setName(name);
+    setCoordinate(coor);
+    setIsWhite(isWhite);
+    setIsFirstMove(isFirstMove);
+}
 
-    Piece::~Piece()
-    {
+Piece::~Piece()
+{
+    //dtor
+}
 
-    }
+void Piece::setName(const string& name)
+{
+    this->name = name;
+}
 
-    // setters
-    void Piece::setName(string name)
-    {
+void Piece::setCoordinate(const string& coor)
+{
+    this->coordinate = coor;
+}
 
-    }
+void Piece::setIsWhite(bool isWhite)
+{
+    this->isWhite = isWhite;
+}
 
-    void Piece::setValue(int value)
-    {
+void Piece::setIsFirstMove(bool isFirstMove)
+{
+    this->isFirstMove = isFirstMove;
+}
 
-    }
+string Piece::getName() const
+{
+    return name;
+}
 
-    void Piece::setIsWhite(bool isWhite)
-    {
+string Piece::getCoordinate() const
+{
+    return coordinate;
+}
 
-    }
+bool Piece::getIsWhite() const
+{
+    return isWhite;
+}
 
-    // getters
-    string Piece::getName() const
-    {
-        return name;
-    }
+bool Piece::getIsFirstMove() const
+{
+    return isFirstMove;
+}
 
-    int Piece::getValue() const
-    {
-        return value;
-    }
-
-    bool Piece::getIsWhite() const
-    {
-        return isWhite;
-    }
-    // the end of base class Piece methods
-
-    // Derived class Pawn methods
-    Pawn::Pawn(string name, int value, bool isWhite) : Piece(name, value, isWhite)
-    {
-
-    }
-
-    Pawn::~Pawn()
-    {
-
-    }
-
-    void Pawn::setIsFirstMove(bool isFirstMove)
-    {
-
-    }
-
-    bool Pawn::getIsFirstMove() const
-    {
-        return isFirstMove;
-    }
-
-    // the end of derived class Pawn methods
-
-    // Derived class Knight methods
-    Knight::Knight(string name, int value, bool isWhite) : Piece(name, value, isWhite)
-    {
-
-    }
-
-    Knight::~Knight()
-    {
-
-    }
-    // the end of derived class Knight methods
-
-    // Derived class Bishop methods
-    Bishop::Bishop(string name, int value, bool isWhite) : Piece(name, value, isWhite)
-    {
-
-    }
-
-    Bishop::~Bishop()
-    {
-
-    }
-    // the end of derived class Bishop methods
-
-    // Derived class Rook methods
-    Rook::Rook(string name, int value, bool isWhite) : Piece(name, value, isWhite)
-    {
-
-    }
-
-    Rook::~Rook()
-    {
-
-    }
-    // the end of derived class Rook methods
-
-    // Derived class Queen methods
-    Queen::Queen(string name, int value, bool isWhite) : Piece(name, value, isWhite)
-    {
-
-    }
-
-    Queen::~Queen()
-    {
-
-    }
-    // the end of derived class Queen methods
-
-    // Derived class King methods
-    King::King(string name, int value, bool isWhite) : Piece(name, value, isWhite)
-    {
-
-    }
-
-    King::~King()
-    {
-
-    }
-    // the end of derived class King methods
+void Piece::deleteTexture()
+{
+    SDL_DestroyTexture(texture);
 }

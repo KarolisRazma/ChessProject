@@ -1,29 +1,35 @@
+// Code author: Karolis Razma 
+
 #ifndef PLAYER_H
 #define PLAYER_H
 
+// libraries
 #include "Board.h"
-#include "Movement.h"
-#include <string>
-using std::string;
+#include <SDL.h>
 
 class Player
 {
     private:
-        string team;
-        Board currentState;
-
+        bool isWhite;
+        string start;
+        string destination;
     public:
         Player();
-        ~Player();
-
-        void setTeam(const string& team);
-        void setCurrentState(const Board& currentState);
-
-        string getTeam() const;
-        Board getCurrentState() const;
-
-        void resign();
-        Board makeMove(const string& startCoordinate, const string& finishCoordinate);
+        virtual ~Player();
+        // sets starting position of the move
+        void setStart(const string& start);
+        // sets destination square
+        void setDestination(const string& dest);
+        // gets starting position
+        string getStart() const;
+        // gets destination square
+        string getDestination() const;
+        // sets player is in White team or in Black team
+        void setIsWhite(bool isWhite);
+        // gets player team
+        bool getIsWhite() const;
+        // tries to make a move and returns if moves was made successfully
+        bool makeMove(Board &currentState, SDL_Renderer * renderer);
 };
 
 #endif // PLAYER_H
