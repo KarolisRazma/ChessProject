@@ -47,10 +47,9 @@ Square::Square(const Square& other)
         setPiece(NULL);
 }
 
-Square::Square(const string& coordinate, SDL_Renderer * renderer)
+Square::Square(const string& coordinate)
 {
     setCoordinate(coordinate);
-    setSquareColor(renderer);
     setIsOccupied(false);
     setPiece(NULL);
 }
@@ -77,36 +76,6 @@ void Square::setPiece(Piece *piece)
 void Square::setIsOccupied(bool isOccupied)
 {
     this->isOccupied = isOccupied;
-}
-
-void Square::setSquareColor(SDL_Renderer* renderer, SDL_Color danger)
-{
-    int index = (int(coordinate[0]) - 97) + ((int(coordinate[1]) - 56) * -8);
-    int col = index / 8;
-    int row = index % 8;
-
-    rect.h = SQUARE_HEIGHT;
-    rect.w = SQUARE_WIDTH;
-    rect.x = row * rect.h;
-    rect.y = col * rect.w;
-
-    if((col + row) % 2 == 0)
-    {
-        SDL_SetRenderDrawColor(renderer, 255, 206, 158, 255);
-        SDL_RenderFillRect(renderer, &rect);
-    }
-    else
-    {
-        SDL_SetRenderDrawColor(renderer, 209, 139, 71, 255);
-        SDL_RenderFillRect(renderer, &rect);
-    }
-    if (danger.r == 0 && danger.g == 0 && danger.b == 0)
-        return;
-    else
-    {
-        SDL_SetRenderDrawColor(renderer, danger.r, danger.g, danger.b, danger.a);
-        SDL_RenderFillRect(renderer, &rect);
-    }
 }
 
 string Square::getCoordinate() const

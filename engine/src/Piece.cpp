@@ -56,8 +56,3 @@ bool Piece::getIsFirstMove() const
 {
     return isFirstMove;
 }
-
-void Piece::deleteTexture()
-{
-    SDL_DestroyTexture(texture);
-}

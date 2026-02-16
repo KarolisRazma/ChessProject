@@ -18,14 +18,13 @@ class Square
         string coordinate;
         bool isOccupied;
         Piece* piece;
-        SDL_Rect rect;
     public:
         // default constructor
         Square();
         // copy constructor
         Square(const Square& other);
         // main constructor for building square
-        Square(const string& coordinate, SDL_Renderer * renderer);
+        Square(const string& coordinate);
         ~Square();
         // sets square's coordinate
         void setCoordinate(const string& coordinate);
@@ -33,8 +32,6 @@ class Square
         void setPiece(Piece *piece);
         // sets if square is occupied or not
         void setIsOccupied(bool isOccupied);
-        // sets square color to light/dark or changes it temporary for danger zone(possible attacks, moves)
-        void setSquareColor(SDL_Renderer * renderer, SDL_Color danger = { 0, 0, 0, 255 });
         // gets square's coordinate
         string getCoordinate() const;
         // gets if square is occupied or not

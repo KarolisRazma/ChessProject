@@ -22,7 +22,7 @@ Board::~Board()
 
 }
 
-void Board::create(SDL_Renderer * renderer)
+void Board::create()
 {
     int squaresCreated = 0;
     string coordinate = "aa";
@@ -34,66 +34,66 @@ void Board::create(SDL_Renderer * renderer)
         for(int j = 0; j < 8; ++j)
         {
             coordinate[0] = 97 + j;
-            Square square(coordinate, renderer);
+            Square square(coordinate);
             if(squaresCreated >= 8 && squaresCreated <= 15)
             {
-                Piece *pawn = new Pawn("p", coordinate, false, true, renderer);
+                Piece *pawn = new Pawn("p", coordinate, false, true);
                 square.setPiece(pawn);
             }
             if(squaresCreated == 0 || squaresCreated == 7)
             {
-                Piece *rook = new Rook("r", coordinate, false, true, renderer);
+                Piece *rook = new Rook("r", coordinate, false, true);
                 square.setPiece(rook);
             }
             if(squaresCreated == 1 || squaresCreated == 6)
             {
-                Piece *knight = new Knight("n", coordinate, false, true, renderer);
+                Piece *knight = new Knight("n", coordinate, false, true);
                 square.setPiece(knight);
             }
             if(squaresCreated == 2 || squaresCreated == 5)
             {
-                Piece *bishop = new Bishop("b", coordinate, false, true, renderer);
+                Piece *bishop = new Bishop("b", coordinate, false, true);
                 square.setPiece(bishop);
             }
             if(squaresCreated == 3)
             {
-                Piece *queen = new Queen("q", coordinate, false, true, renderer);
+                Piece *queen = new Queen("q", coordinate, false, true);
                 square.setPiece(queen);
             }
             if(squaresCreated == 4)
             {
-                Piece *king = new King("k", coordinate, false, true, renderer);
+                Piece *king = new King("k", coordinate, false, true);
                 setBlackKingLocation(coordinate);
                 square.setPiece(king);
             }
             if(squaresCreated >= 48 && squaresCreated <= 55)
             {
-                Piece *pawn = new Pawn("P", coordinate, true, true, renderer);
+                Piece *pawn = new Pawn("P", coordinate, true, true);
                 square.setPiece(pawn);
             }
             if(squaresCreated == 56 || squaresCreated == 63)
             {
-                Piece *rook = new Rook("R", coordinate, true, true, renderer);
+                Piece *rook = new Rook("R", coordinate, true, true);
                 square.setPiece(rook);
             }
             if(squaresCreated == 57 || squaresCreated == 62)
             {
-                Piece *knight = new Knight("N", coordinate, true, true, renderer);
+                Piece *knight = new Knight("N", coordinate, true, true);
                 square.setPiece(knight);
             }
             if(squaresCreated == 58 || squaresCreated == 61)
             {
-                Piece *bishop = new Bishop("B", coordinate, true, true, renderer);
+                Piece *bishop = new Bishop("B", coordinate, true, true);
                 square.setPiece(bishop);
             }
             if(squaresCreated == 59)
             {
-                Piece *queen = new Queen("Q", coordinate, true, true, renderer);
+                Piece *queen = new Queen("Q", coordinate, true, true);
                 square.setPiece(queen);
             }
             if(squaresCreated == 60)
             {
-                Piece *king = new King("K", coordinate, true, true, renderer);
+                Piece *king = new King("K", coordinate, true, true);
                 setWhiteKingLocation(coordinate);
                 square.setPiece(king);
             }
@@ -118,7 +118,7 @@ void Board::destroy()
     }
 }
 
-void Board::movePiece(Square startSquare, Square destSquare, bool isWhite, SDL_Renderer * renderer)
+void Board::movePiece(Square startSquare, Square destSquare, bool isWhite)
 {
     string startCoordinate = startSquare.getCoordinate();
     string finishCoordinate = destSquare.getCoordinate();
@@ -151,10 +151,6 @@ void Board::movePiece(Square startSquare, Square destSquare, bool isWhite, SDL_R
 
                 startPiece->setCoordinate(kingSquare.getCoordinate());
                 destinationPiece->setCoordinate(rookSquare.getCoordinate());
-                SDL_DestroyTexture(startPiece->getTexture());
-                SDL_DestroyTexture(destinationPiece->getTexture());
-                startPiece->setTexture(renderer);
-                destinationPiece->setTexture(renderer);
                 kingSquare.setPiece(startPiece);
                 rookSquare.setPiece(destinationPiece);
                 setSquare(kingSquare, startIndex + 2);
@@ -173,18 +169,11 @@ void Board::movePiece(Square startSquare, Square destSquare, bool isWhite, SDL_R
 
                 startPiece->setCoordinate(kingSquare.getCoordinate());
                 destinationPiece->setCoordinate(rookSquare.getCoordinate());
-                SDL_DestroyTexture(startPiece->getTexture());
-                SDL_DestroyTexture(destinationPiece->getTexture());
-                startPiece->setTexture(renderer);
-                destinationPiece->setTexture(renderer);
                 kingSquare.setPiece(startPiece);
                 rookSquare.setPiece(destinationPiece);
                 setSquare(kingSquare, startIndex - 2);
                 setSquare(rookSquare, finishIndex + 3);
             }
-
-            startSquare.setSquareColor(renderer);
-            destSquare.setSquareColor(renderer);
 
             destSquare.setPiece(NULL);
             startSquare.setPiece(NULL);
@@ -203,12 +192,12 @@ void Board::movePiece(Square startSquare, Square destSquare, bool isWhite, SDL_R
             if(isWhite)
             {
                 delete startPiece;
-                startPiece = new Queen("Q", finishCoordinate, true, false, renderer);
+                startPiece = new Queen("Q", finishCoordinate, true, false);
             }
             else
             {
                 delete startPiece;
-                startPiece = new Queen("q", finishCoordinate, false, false, renderer);
+                startPiece = new Queen("q", finishCoordinate, false, false);
             }
         }
         
@@ -227,15 +216,6 @@ void Board::movePiece(Square startSquare, Square destSquare, bool isWhite, SDL_R
                 setWhiteKingLocation(finishCoordinate);
             else
                 setBlackKingLocation(finishCoordinate);
-        }
-
-        SDL_DestroyTexture(startPiece->getTexture());
-        startSquare.setSquareColor(renderer);
-        destSquare.setSquareColor(renderer);
-        startPiece->setTexture(renderer);
-        if (Piece * p = destSquare.getPiece())
-        {
-            SDL_DestroyTexture(p->getTexture());
         }
 
         destSquare.setPiece(startPiece);
@@ -269,7 +249,7 @@ vector<Square> Board::findLegalMoves(vector<Square>& possibleMoves, bool isWhite
         isAttackable = false;
         if(i != -1)
         {
-            tempBoard.movePiece(startSquare, possibleMoves[i], isWhite, NULL);
+            tempBoard.movePiece(startSquare, possibleMoves[i], isWhite);
             if(isWhite)
             {
                 kingSquare = tempBoard.getWhiteKingSquare();
@@ -312,7 +292,6 @@ vector<Square> Board::findLegalMoves(vector<Square>& possibleMoves, bool isWhite
         {
             legalMoves.push_back(possibleMoves[i]);
         }
-        tempBoard.destroyTextures();
     }
     return legalMoves;
 }
@@ -382,55 +361,12 @@ Square Board::getSquare(int index) const
     return squares[index / 8][index % 8];
 }
 
-void Board::destroyTextures()
-{
-    for (int i = 0; i < BOARD_SIZE * BOARD_SIZE; ++i)
-    {
-        if (getSquare(i).getPiece())
-        {
-            getSquare(i).getPiece()->deleteTexture();
-        }
-    }
-}
-
-vector<Square> Board::renderDangerZones(bool isWhite, const Square& selectedSquare, SDL_Renderer* renderer)
-{
-    SDL_Color dangerColor = { 52, 232, 235, 100 };
-    Piece* temp;
-    vector<Square> moves;
-
-    temp = selectedSquare.getPiece();
-    if (temp && temp->getIsWhite() == isWhite)
-    {
-        moves = temp->getPossibleMoves(*this);
-        moves = findLegalMoves(moves, isWhite, selectedSquare);
-    }
-    else
-    {
-        return moves;
-    }
-    for (int i = 0; i < int(moves.size()); ++i)
-    {
-
-        moves[i].setSquareColor(renderer, dangerColor);
-        if (moves[i].getPiece() != NULL)
-        {
-            moves[i].getPiece()->deleteTexture();
-            moves[i].getPiece()->setTexture(renderer);
-        }
-    }
-
-    SDL_RenderPresent(renderer);
-    return moves;
-}
-
 bool Board::isEndgame()
 {
     if (isChecked(getPieces(0), *this, getWhiteKingSquare()))
     {
         if (isCheckmate(getPieces(1), getWhiteKingSquare()))
         {
-            SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "Game over!", "White king is checkmated - Black won!", NULL);
             return true;
         }
     }
@@ -438,23 +374,19 @@ bool Board::isEndgame()
     {
         if (isCheckmate(getPieces(0), getBlackKingSquare()))
         {
-            SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "Game over!", "Black king is checkmated - White won!", NULL);
             return true;
         }
     }
     if (isDraw())
     {
-        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "Game over!", "It's a draw!", NULL);
         return true;
     }
     if (isStalemate(getPieces(1), getBlackKingSquare()))
     {
-        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "Game over!", "It's a stalemate for Black!", NULL);
         return true;
     }
     if (isStalemate(getPieces(0), getWhiteKingSquare()))
     {
-        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "Game over!", "It's a stalemate for White!", NULL);
         return true;
     }
 
@@ -536,10 +468,9 @@ bool Board::isItLegalToCastle(Square startSquare, Square finishSquare, Board& te
     if (startIndex < finishIndex) {
         for (int i = startIndex; i < finishIndex-1; ++i)
         {
-            temp.movePiece(temp.getSquare(i), temp.getSquare(i + 1), isWhite, NULL);
+            temp.movePiece(temp.getSquare(i), temp.getSquare(i + 1), isWhite);
             if (isChecked(temp.getPieces(!isWhite), temp, temp.getSquare(i + 1))) 
             {
-                temp.destroyTextures();
                 return false;
             }
         }
@@ -548,15 +479,13 @@ bool Board::isItLegalToCastle(Square startSquare, Square finishSquare, Board& te
     {
         for (int i = startIndex; i > finishIndex+1; --i)
         {
-            temp.movePiece(temp.getSquare(i), temp.getSquare(i - 1), isWhite, NULL);
+            temp.movePiece(temp.getSquare(i), temp.getSquare(i - 1), isWhite);
             if (isChecked(temp.getPieces(!isWhite), temp, temp.getSquare(i - 1))) 
             {
-                temp.destroyTextures();
                 return false;
             }
         }
     }
-    temp.destroyTextures();
     return true;
 }
 

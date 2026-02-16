@@ -6,7 +6,6 @@
 
 // libraries
 #include "Square.h"
-#include <SDL.h>
 #include <vector>
 
 const int BOARD_SIZE = 8;
@@ -23,11 +22,11 @@ class Board
         ~Board();
 
         // creates chess board
-        void create(SDL_Renderer * renderer);
+        void create();
         // destroys chess board
         void destroy();
         // moves piece on the board
-        void movePiece(Square startSquare, Square destSquare, bool isWhite, SDL_Renderer * renderer);
+        void movePiece(Square startSquare, Square destSquare, bool isWhite);
         // finds legal moves for a piece
         vector<Square> findLegalMoves(vector<Square>& possibleMoves, bool isWhite, Square startSquare);
         // sets white king coordinate
@@ -48,10 +47,7 @@ class Board
         void setSquare(const Square& square, int index);
         // gets square from given index
         Square getSquare(int index) const;
-        // destroy every piece texture
-        void destroyTextures();
-        // renders all danger zone squares in different color and returns vector with squares that are 
-        vector<Square> renderDangerZones(bool isWhite, const Square& selectedSquare, SDL_Renderer* renderer);
+
         // boolean to check if any endgame events occured
         bool isEndgame();
 

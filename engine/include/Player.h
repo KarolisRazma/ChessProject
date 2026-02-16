@@ -5,7 +5,6 @@
 
 // libraries
 #include "Board.h"
-#include <SDL.h>
 
 class Player
 {
@@ -29,7 +28,7 @@ class Player
         // gets player team
         bool getIsWhite() const;
         // tries to make a move and returns if moves was made successfully
-        bool makeMove(Board &currentState, SDL_Renderer * renderer);
+        bool makeMove(Board &currentState);
 };
 
 #endif // PLAYER_H

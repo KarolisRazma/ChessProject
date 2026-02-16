@@ -7,6 +7,5 @@ int main(int argc, char* argv[])
 {
     ChessGame manager;
     manager.play();
-   
     return 0;
 }

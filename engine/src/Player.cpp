@@ -41,7 +41,7 @@ bool Player::getIsWhite() const
     return isWhite;
 }
 
-bool Player::makeMove(Board &currentState, SDL_Renderer * renderer)
+bool Player::makeMove(Board &currentState)
 {
     
     int startIndex;
@@ -98,7 +98,7 @@ bool Player::makeMove(Board &currentState, SDL_Renderer * renderer)
     setDestination("");
     if(moveAvailable)
     {
-        currentState.movePiece(selectedSquare, destinationSquare, getIsWhite(), renderer);
+        currentState.movePiece(selectedSquare, destinationSquare, getIsWhite());
         return true;
     }
     else
